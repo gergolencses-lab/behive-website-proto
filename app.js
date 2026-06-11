@@ -32,28 +32,6 @@ if (grid) {
     </article>`).join('');
 }
 
-/* ---------- Hero service selector ---------- */
-const SERVICES = ['Research', 'Consulting', 'Design', 'Training'];
-let active = 2; // Design pre-selected, like the reference
-const items = Array.from(document.querySelectorAll('.sel-item'));
-const activeLabel = document.getElementById('selActive');
-const activeLink = document.querySelector('.hero-selector-active');
-
-function renderSelector() {
-  items.forEach((btn, i) => {
-    btn.classList.toggle('active', i === active);
-    btn.setAttribute('aria-pressed', String(i === active));
-  });
-  if (activeLabel) activeLabel.textContent = SERVICES[active];
-  if (activeLink) activeLink.href = '#svc-' + active;
-}
-items.forEach(btn => btn.addEventListener('click', () => { active = +btn.dataset.idx; renderSelector(); }));
-const prevBtn = document.getElementById('selPrev');
-const nextBtn = document.getElementById('selNext');
-if (prevBtn) prevBtn.addEventListener('click', () => { active = (active + SERVICES.length - 1) % SERVICES.length; renderSelector(); });
-if (nextBtn) nextBtn.addEventListener('click', () => { active = (active + 1) % SERVICES.length; renderSelector(); });
-renderSelector();
-
 /* ---------- Reveal on scroll ---------- */
 const io = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
