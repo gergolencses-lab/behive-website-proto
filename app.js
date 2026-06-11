@@ -55,13 +55,13 @@ if (nextBtn) nextBtn.addEventListener('click', () => { active = (active + 1) % S
 renderSelector();
 
 /* ---------- Reveal on scroll ---------- */
-const io = new IntersectionObserver(entries => {
+const io = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-}, { threshold: 0.12 });
-document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+}, { threshold: 0.12 }) : null;
+if (io) document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
 /* ---------- Stat count-up ---------- */
-const statIO = new IntersectionObserver(entries => {
+const statIO = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (!e.isIntersecting) return;
     const el = e.target, target = +el.dataset.count, t0 = performance.now(), dur = 1400;
@@ -73,8 +73,27 @@ const statIO = new IntersectionObserver(entries => {
     requestAnimationFrame(tick);
     statIO.unobserve(el);
   });
-}, { threshold: 0.6 });
-document.querySelectorAll('[data-count]').forEach(el => statIO.observe(el));
+}, { threshold: 0.6 }) : null;
+if (statIO) document.querySelectorAll('[data-count]').forEach(el => statIO.observe(el));
+
+/* ---------- Reveal safety net ----------
+   Content must never stay invisible: if IntersectionObserver is missing or
+   silently broken (some embedded webviews), reveal everything in one go. */
+const revealAll = () => {
+  document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+  document.querySelectorAll('[data-count]').forEach(el => { el.textContent = el.dataset.count; });
+};
+const revealStuck = () => {
+  const stuck = Array.from(document.querySelectorAll('.reveal:not(.in)')).some(el => {
+    const r = el.getBoundingClientRect();
+    return r.top < window.innerHeight - 40 && r.bottom > 40;
+  });
+  if (stuck || !io) { revealAll(); window.removeEventListener('scroll', onRevealCheck); }
+};
+let revealTimer = null;
+const onRevealCheck = () => { clearTimeout(revealTimer); revealTimer = setTimeout(revealStuck, 400); };
+window.addEventListener('scroll', onRevealCheck, { passive: true });
+setTimeout(revealStuck, 1200);
 
 /* ---------- Hero video: keep it playing (autoplay can be interrupted) ---------- */
 const video = document.getElementById('heroVideo');
@@ -85,11 +104,31 @@ if (video) {
   video.addEventListener('pause', () => setTimeout(ensurePlaying, 300));
 }
 
+/* ---------- Sticky nav: show once the hero has scrolled out ----------
+   Plain scroll listener (not IO) — deterministic in every environment. */
+const stickyNav = document.getElementById('stickyNav');
+const hero = document.querySelector('.hero');
+if (stickyNav && hero) {
+  let navTick = false;
+  const updateNav = () => {
+    stickyNav.classList.toggle('show', window.scrollY > hero.offsetHeight - 70);
+    navTick = false;
+  };
+  window.addEventListener('scroll', () => {
+    if (!navTick) { navTick = true; requestAnimationFrame(updateNav); }
+  }, { passive: true });
+  updateNav();
+}
+
 /* ---------- Topic chips (single select) ---------- */
 document.querySelectorAll('.chip').forEach(chip => {
   chip.addEventListener('click', () => {
-    chip.closest('.chip-row').querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    chip.closest('.chip-row').querySelectorAll('.chip').forEach(c => {
+      c.classList.remove('active');
+      c.setAttribute('aria-pressed', 'false');
+    });
     chip.classList.add('active');
+    chip.setAttribute('aria-pressed', 'true');
   });
 });
 

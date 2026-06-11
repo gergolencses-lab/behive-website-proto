@@ -5,15 +5,46 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BeHive Consulting — Behavioural Science, applied</title>
 <meta name="description" content="BeHive is a Budapest-born behavioural science consultancy. Research, consulting, design and training for organisations globally.">
+<meta name="theme-color" content="#07332D">
+<meta property="og:type" content="website">
+<meta property="og:title" content="BeHive Consulting — Behavioural Science, applied">
+<meta property="og:description" content="Understand people as they are, not as they should be. Research, consulting, design and training — from Budapest, for organisations globally.">
+<meta property="og:image" content="https://gergolencses-lab.github.io/behive-website-proto/assets/hero-poster.jpg">
+<meta property="og:url" content="https://gergolencses-lab.github.io/behive-website-proto/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BeHive Consulting — Behavioural Science, applied">
+<meta name="twitter:image" content="https://gergolencses-lab.github.io/behive-website-proto/assets/hero-poster.jpg">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<noscript><style>.reveal { opacity: 1 !important; transform: none !important; }</style></noscript>
 </head>
 <body>
 
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ================= STICKY NAV (appears after hero) ================= -->
+<nav class="sticky-nav" id="stickyNav" aria-label="Sticky">
+  <a class="brand" href="#top">
+    <svg width="26" height="29" viewBox="0 0 34 38" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M17 2 31 10v16L17 34 3 26V10z" stroke="#9AE6C2"/>
+      <path d="M17 13.5 22.5 16.7v6.4L17 26.3l-5.5-3.2v-6.4z" fill="#9AE6C2" stroke="none"/>
+    </svg>
+    <span class="brand-name">BeHive<small>Consulting</small></span>
+  </a>
+  <div class="sticky-links">
+    <a href="#services">Services</a>
+    <a href="#work">Work</a>
+    <a href="#team">Team</a>
+    <a href="#insights">Insights</a>
+  </div>
+  <a class="btn-pill btn-pill-sm" href="#contact">Book an intro call</a>
+</nav>
+
 <!-- ================= HERO ================= -->
-<header class="hero">
+<header class="hero" id="top">
   <div class="hero-bg" aria-hidden="true">
     <video autoplay muted loop playsinline preload="auto" poster="assets/hero-poster.jpg" id="heroVideo">
       <source src="assets/hero-loop.mp4" type="video/mp4">
@@ -63,7 +94,7 @@
       <p>&ldquo;Working with BeHive has re-invigorated our approach &mdash; fresh ideas, innovative suggestions and a dynamic team gave us new insights to campaign development.&rdquo;</p>
     </div>
 
-    <h1 class="hero-h1">Understand People<br>As They Are,<br>Not As They Should Be.</h1>
+    <h1 class="hero-h1">Understand People<br>As They Are,<br>Not As They Should&nbsp;Be.</h1>
 
     <p class="hero-sub">Budapest-born Behavioural Science consultancy &mdash; research, consulting, design and training for organisations across the globe.</p>
 
@@ -81,7 +112,7 @@
 
     <div class="hero-selector">
       <span class="hero-selector-label" id="selLabel">Pick where you want to start</span>
-      <div class="selector-row" role="tablist" aria-label="Services">
+      <div class="selector-row" role="group" aria-label="Services">
         <button class="sel-arrow" id="selPrev" aria-label="Previous service">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
         </button>
@@ -128,7 +159,7 @@
   </div>
 </header>
 
-<main id="top">
+<main id="main">
 
   <!-- ================= PROOF ================= -->
   <section class="proof reveal">
@@ -225,7 +256,7 @@
       <div class="work-grid">
         <article class="case-card reveal">
           <div class="case-media">
-            <img src="assets/projects/telekom.jpg" alt="Telekom case study">
+            <img src="assets/projects/telekom.jpg" alt="Telekom case study" loading="lazy">
           </div>
           <div class="case-body">
             <div class="case-meta">Telekom <span class="dot"></span> Telco</div>
@@ -237,7 +268,7 @@
         </article>
         <article class="case-card reveal">
           <div class="case-media">
-            <img src="assets/projects/futurecare.jpg" alt="FutureCare platform case study">
+            <img src="assets/projects/futurecare.jpg" alt="FutureCare platform case study" loading="lazy">
           </div>
           <div class="case-body">
             <div class="case-meta">ILI Digital &times; Volksbank <span class="dot"></span> Digital</div>
@@ -249,7 +280,7 @@
         </article>
         <article class="case-card reveal">
           <div class="case-media">
-            <img src="assets/projects/omiii.jpg" alt="OMIII vaccination programme case study">
+            <img src="assets/projects/omiii.jpg" alt="OMIII vaccination programme case study" loading="lazy">
             <div class="case-stat"><strong>97%</strong>patient satisfaction</div>
           </div>
           <div class="case-body">
@@ -293,21 +324,21 @@
           <blockquote>Working with Behive has re-invigorated our approach &mdash; fresh ideas, innovative suggestions and a dynamic team gave us new insights to campaign development. High-quality delivery despite tight deadlines, tailored to how the receiver thinks. An inspiration to work with!</blockquote>
           <div class="voice-who">
             <div><strong>Tina Ki&aelig;r</strong><span>Communication Officer, WHO Regional Office for Europe</span></div>
-            <img src="assets/logos/who.png" alt="WHO">
+            <img src="assets/logos/who.png" alt="WHO" loading="lazy">
           </div>
         </article>
         <article class="voice reveal">
           <blockquote>The BeHive team has opened our eyes to a multitude of perspectives on how the customer might think and how we could act on it. This external expert view is imperative during product development! Working with them was extremely helpful.</blockquote>
           <div class="voice-who">
             <div><strong>Andras Kezai</strong><span>Customer Journey Chapter Lead, Telekom</span></div>
-            <img src="assets/logos/telekom.png" alt="Telekom">
+            <img src="assets/logos/telekom.png" alt="Telekom" loading="lazy">
           </div>
         </article>
         <article class="voice reveal">
           <blockquote>Working with BeHive has been a transformative experience. Their innovative use of behavioural science has fundamentally changed how our bank approaches and communicates with SMEs &mdash; and reshaped how we understand our clients&rsquo; needs.</blockquote>
           <div class="voice-who">
             <div><strong>Adam Kovasznai</strong><span>Chief Business Officer, BUPA &middot; MBH</span></div>
-            <img src="assets/logos/mbh.png" alt="MBH Bank">
+            <img src="assets/logos/mbh.png" alt="MBH Bank" loading="lazy">
           </div>
         </article>
       </div>
@@ -384,10 +415,10 @@
       <div class="contact-form reveal" id="contactFormBox">
         <form id="contactForm" novalidate>
           <div class="chip-row" role="group" aria-label="Topic">
-            <button type="button" class="chip active">Working together</button>
-            <button type="button" class="chip">Capability building</button>
-            <button type="button" class="chip">Joining BeHive</button>
-            <button type="button" class="chip">Media</button>
+            <button type="button" class="chip active" aria-pressed="true">Working together</button>
+            <button type="button" class="chip" aria-pressed="false">Capability building</button>
+            <button type="button" class="chip" aria-pressed="false">Joining BeHive</button>
+            <button type="button" class="chip" aria-pressed="false">Media</button>
           </div>
           <div class="field-row">
             <div class="field">
@@ -456,7 +487,7 @@
         <ul>
           <li><a href="mailto:info@behive.consulting">info@behive.consulting</a></li>
           <li><a href="tel:+36302840599">+36 30 284 0599</a></li>
-          <li><a href="#top">Budapest, Hungary</a></li>
+          <li><span class="footer-plain">Budapest, Hungary</span></li>
         </ul>
       </div>
     </div>

@@ -24,6 +24,20 @@
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 html, body { margin: 0; padding: 0; }
+
+/* keyboard focus — visible on every interactive element, tuned per background */
+:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+.hero :focus-visible, .stats :focus-visible, .team :focus-visible,
+.footer :focus-visible, .sticky-nav :focus-visible { outline-color: var(--mint); }
+
+/* skip link — first tab stop, visible only on focus */
+.skip-link {
+  position: fixed; top: 12px; left: 12px; z-index: 200;
+  background: var(--teal); color: var(--white); text-decoration: none;
+  font-weight: 600; font-size: 14px; padding: 11px 20px; border-radius: var(--radius-pill);
+  transform: translateY(-220%); transition: transform .2s ease;
+}
+.skip-link:focus { transform: none; }
 body {
   font-family: var(--font);
   background: var(--cream);
@@ -35,7 +49,7 @@ body {
 }
 img { max-width: 100%; display: block; }
 a { color: var(--teal); }
-section { scroll-margin-top: 24px; }
+section { scroll-margin-top: 92px; } /* clears the sticky nav on anchor jumps */
 
 h1, h2, h3, h4 { margin: 0; font-weight: 400; }
 .section-kicker {
@@ -108,6 +122,32 @@ h1, h2, h3, h4 { margin: 0; font-weight: 400; }
   box-shadow: 0 8px 26px rgba(0,0,0,0.22); transition: transform .2s;
 }
 .btn-round:hover { transform: rotate(-12deg); }
+
+/* STICKY NAV — slides in once the hero scrolls out, so navigation
+   and the CTA travel with the reader on a 7000px page */
+.sticky-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between; gap: 18px;
+  padding: 10px clamp(20px, 3.6vw, 52px);
+  background: rgba(7, 51, 45, 0.90);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  transform: translateY(-100%); visibility: hidden;
+  transition: transform .35s ease, visibility 0s linear .35s;
+}
+.sticky-nav.show {
+  transform: translateY(0); visibility: visible;
+  transition: transform .35s ease, visibility 0s;
+}
+.sticky-nav .brand-name { font-size: 17px; color: var(--white); }
+.sticky-nav .brand-name small { font-size: 9px; letter-spacing: 2.2px; }
+.sticky-links { display: flex; align-items: center; gap: clamp(18px, 2.2vw, 34px); }
+.sticky-links a {
+  color: rgba(255,255,255,0.88); text-decoration: none; font-size: 14.5px;
+  padding: 8px 2px; transition: color .2s;
+}
+.sticky-links a:hover { color: var(--mint); }
+.btn-pill-sm { padding: 10px 20px; font-size: 14px; box-shadow: none; }
 
 /* TESTIMONIAL CLUSTER */
 .hero-quote {
@@ -413,6 +453,7 @@ h1, h2, h3, h4 { margin: 0; font-weight: 400; }
 .chip.active { background: var(--teal); color: var(--white); border-color: var(--teal); }
 .field { margin-bottom: 16px; }
 .field label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--ink); }
+.field label small { font-size: 12px; font-weight: 400; color: var(--muted); }
 .field input, .field textarea {
   width: 100%; font-family: inherit; font-size: 15px; color: var(--ink);
   border: 1.5px solid rgba(10,84,74,0.18); border-radius: 12px;
@@ -461,6 +502,7 @@ h1, h2, h3, h4 { margin: 0; font-weight: 400; }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
   html { scroll-behavior: auto; }
+  .sticky-nav, .sticky-nav.show, .skip-link { transition: none; }
 }
 
 /* ============ RESPONSIVE ============ */
@@ -470,6 +512,8 @@ h1, h2, h3, h4 { margin: 0; font-weight: 400; }
   .hero-h1 { font-size: clamp(38px, 7.4vw, 76px); }
 }
 @media (max-width: 900px) {
+  .sticky-links { display: none; }
+  .sticky-nav { padding-top: 8px; padding-bottom: 8px; }
   .hero { min-height: 100svh; }
   .hero-content {
     display: flex; flex-direction: column; justify-content: flex-end;
